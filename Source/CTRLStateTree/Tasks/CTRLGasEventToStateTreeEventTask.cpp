@@ -33,15 +33,15 @@ void UCTRLStateTreeEventBridge::GameplayEventContainerCallback(FGameplayTag cons
 	}
 }
 
-EDataValidationResult FCTRLGasEventToStateTreeEventTask::Compile(FStateTreeDataView const InstanceDataView, TArray<FText>& ValidationMessages)
+EDataValidationResult FCTRLGasEventToStateTreeEventTask::Compile(UE::StateTree::ICompileNodeContext& CompileContext)
 {
-	auto const SuperResult = FCTRLStateTreeCommonBaseTask::Compile(InstanceDataView, ValidationMessages);
+	auto const SuperResult = FCTRLStateTreeCommonBaseTask::Compile(CompileContext);
 	EDataValidationResult Result = EDataValidationResult::Valid;
 
-	auto const* Data = InstanceDataView.GetPtr<FInstanceDataType>();
+	auto const* Data = CompileContext.GetInstanceDataView().GetPtr<FInstanceDataType>();
 	if (!Data->EventTags.IsValid())
 	{
-		ValidationMessages.Add(LOCTEXT("MissingTag", "EventTags is set to required, requires valid tag."));
+		CompileContext.AddValidationError(LOCTEXT("MissingTag", "EventTags is set to required, requires valid tag."));
 		Result = EDataValidationResult::Invalid;
 	}
 

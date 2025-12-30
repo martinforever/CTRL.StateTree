@@ -39,7 +39,7 @@ struct FCTRLChangeInputConfigTask : public FCTRLStateTreeCommonBaseTask
 	FCTRLInputModeConfig GetInputConfig(FInstanceDataType const* InstanceData) const;
 	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, FStateTreeTransitionResult const& Transition) const override;
 	virtual void ExitState(FStateTreeExecutionContext& Context, FStateTreeTransitionResult const& Transition) const override;
-	virtual EDataValidationResult Compile(FStateTreeDataView InstanceDataView, TArray<FText>& ValidationMessages) override;
+	virtual EDataValidationResult Compile(UE::StateTree::ICompileNodeContext& CompileContext) override;
 
 #if WITH_EDITOR
 	virtual FText GetDescription(

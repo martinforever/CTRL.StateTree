@@ -33,6 +33,7 @@ public class CTRLStateTree : ModuleRules
 				"GameplayStateTreeModule",
 				"GameplayTags",
 				"ModelViewViewModelBlueprint",
+				"PropertyBindingUtils",
 				"Slate",
 				"SlateCore",
 				"StateTreeModule",

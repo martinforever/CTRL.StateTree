@@ -67,14 +67,14 @@ void FCTRLChangeInputConfigTask::ExitState(FStateTreeExecutionContext& Context, 
 	ChangeInputConfigSubsystem->PopInputConfig(Handle);
 }
 
-EDataValidationResult FCTRLChangeInputConfigTask::Compile(FStateTreeDataView const InstanceDataView, TArray<FText>& ValidationMessages)
+EDataValidationResult FCTRLChangeInputConfigTask::Compile(UE::StateTree::ICompileNodeContext& CompileContext)
 {
-	auto SuperResult = Super::Compile(InstanceDataView, ValidationMessages);
-	auto const InstanceData = InstanceDataView.GetPtr<FCTRLChangeInputConfigTaskData>();
+	auto SuperResult = Super::Compile(CompileContext);
+	auto const InstanceData = CompileContext.GetInstanceDataView().GetPtr<FCTRLChangeInputConfigTaskData>();
 	if (InstanceData->bUseInputConfigPreset && !IsValid(InstanceData->InputConfigPreset))
 	{
 		SuperResult = EDataValidationResult::Invalid;
-		ValidationMessages.Add(FText::FromString(FString::Printf(TEXT("InputConfigPreset is invalid: %s"), *GetNameSafe(InstanceData->InputConfigPreset))));
+		CompileContext.AddValidationError(FText::FromString(FString::Printf(TEXT("InputConfigPreset is invalid: %s"), *GetNameSafe(InstanceData->InputConfigPreset))));
 	}
 	return SuperResult;
 }

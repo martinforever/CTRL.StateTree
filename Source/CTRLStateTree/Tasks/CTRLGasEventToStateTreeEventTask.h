@@ -67,7 +67,7 @@ public:
 	bool ListenForEvents(FStateTreeExecutionContext const& Context) const;
 	void UnlistenForEvents(FStateTreeExecutionContext const& Context) const;
 	virtual void ExitState(FStateTreeExecutionContext& Context, FStateTreeTransitionResult const& Transition) const override;
-	virtual EDataValidationResult Compile(FStateTreeDataView InstanceDataView, TArray<FText>& ValidationMessages) override;
+	virtual EDataValidationResult Compile(UE::StateTree::ICompileNodeContext& CompileContext) override;
 
 protected:
 	UCTRLStateTreeEventBridge* MakeBridge(FStateTreeExecutionContext const& Context) const;
